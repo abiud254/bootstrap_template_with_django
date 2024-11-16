@@ -1,0 +1,629 @@
+{% extends "layout.html" %} {% load static %} {% block content %}
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div
+      class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between"
+    >
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="sitename"><span>e</span>Startup</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section id="hero" class="hero section light-background">
+      {% for hero_section in hero_section %}
+      <div
+        class="container position-relative"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="row gy-5">
+          <div
+            class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"
+          >
+            <h2>{{ hero_section.title }}</h2>
+            <p>{{ hero_section.description }}</p>
+            <div class="d-flex">
+              <a
+                href="{{ hero_section.get_started_button_url }}"
+                class="btn-get-started"
+                >{{ hero_section.get_started_button_text }}</a
+              >
+              <a
+                href="{{ hero_section.video_url }}"
+                class="glightbox btn-watch-video d-flex align-items-center"
+                ><i class="bi bi-play-circle"></i
+                ><span>{{ hero_section.video_button_text }}</span></a
+              >
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2">
+            <img
+              src="/media/{{ hero_section.hero_image }}"
+              class="img-fluid"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div
+        class="icon-boxes position-relative"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="container position-relative">
+          <div class="row gy-4 mt-5">
+            {% for card in feature_cards %}
+            <div class="col-xl-3 col-md-6">
+              <div class="icon-box">
+                <div class="icon"><i class="{{ card.icon }}"></i></div>
+                <h4 class="title">
+                  <a href="" class="stretched-link">{{ card.title }}</a>
+                </h4>
+              </div>
+            </div>
+            {% endfor %}
+            <!--End Icon Box -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Hero Section -->
+
+    <!-- About Section -->
+    {% for about_section in about_section %}
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p class="who-we-are">{{ about_section.section_label }}</p>
+            <h3>{{ about_section.title }}</h3>
+            <p class="fst-italic">{{ about_section.description }}</p>
+            <ul>
+              <li>
+                <i class="{{ about_section.list_item1_icon }}"></i>
+                <span>{{ about_section.list_item1_text }}</span>
+              </li>
+              <li>
+                <i class="{{ about_section.list_item2_icon }}"></i>
+                <span>{{ about_section.list_item2_text }}</span>
+              </li>
+              <li>
+                <i class="{{ about_section.list_item3_icon }}"></i>
+                <span>{{ about_section.list_item3_text }}</span>
+              </li>
+            </ul>
+            <a href="{{ about_section.button_url }}" class="read-more"
+              ><span>{{ about_section.button_text }}</span
+              ><i class="{{ about_section.button_icon }}"></i
+            ></a>
+          </div>
+
+          <div
+            class="col-lg-6 about-images"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <img
+                  src="/media/{{ about_section.main_image }}"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img
+                      src="/media/{{ about_section.top_right_image }}"
+                      class="img-fluid"
+                      alt=""
+                    />
+                  </div>
+                  <div class="col-lg-12">
+                    <img
+                      src="/media/{{ about_section.bottom_right_image }}"
+                      class="img-fluid"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endfor %}
+    <!-- /About Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+      <!-- Section Title -->
+      {% for header in service_header %}
+      <div class="container section-title" data-aos="fade-up">
+        <h2>{{ header.label }}</h2>
+        <div>
+          <span>{{ header.title1 }}</span>
+          <span class="description-title">{{ header.title2 }}</span>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- End Section Title -->
+
+      <div class="container">
+        <div class="row gy-4">
+          {% for card in service_card %}
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="{{ card.service_icon }}"></i>
+              </div>
+              <a href="service-details.html" class="stretched-link">
+                <h3>{{ card.service_title }}</h3>
+              </a>
+              <p>{{ card.service_description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- End Service Item -->
+        </div>
+      </div>
+    </section>
+    <!-- /Services Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section light-background">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <div>
+          <span>Our</span>
+          <span class="description-title">Features</span>
+        </div>
+      </div>
+      <!-- End Section Title -->
+
+      <div class="container">
+        <div class="row gy-5 justify-content-between">
+          <div class="col-xl-5" data-aos="zoom-out" data-aos-delay="100">
+            <img
+              src=" {% static 'assets/assets/img//template/eStartup/features.svg' %}"
+              class="img-fluid"
+              alt=""
+            />
+          </div>
+
+          <div class="col-xl-6 d-flex">
+            <div class="row align-self-center gy-4">
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Data-Driven Insights</h3>
+                </div>
+              </div>
+              <!-- End Feature Item -->
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Seamless Integration</h3>
+                </div>
+              </div>
+              <!-- End Feature Item -->
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Custom Reports</h3>
+                </div>
+              </div>
+              <!-- End Feature Item -->
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Collaboration Tools</h3>
+                </div>
+              </div>
+              <!-- End Feature Item -->
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Client Management</h3>
+                </div>
+              </div>
+              <!-- End Feature Item -->
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Scalable Solutions</h3>
+                </div>
+              </div>
+              <!-- End Feature Item -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Features Section -->
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Pricing</h2>
+        <div>
+          <span>Our</span> <span class="description-title">Pricing</span>
+        </div>
+      </div>
+      <!-- End Section Title -->
+
+      <div class="container">
+        <div class="row gy-4">
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+          >
+            <div class="pricing-tem">
+              <h3 style="color: #20c997">Free Plan</h3>
+              <div class="price"><sup>KES</sup>0<span> / mo</span></div>
+              <div class="icon">
+                <i class="bi bi-box" style="color: #20c997"></i>
+              </div>
+              <ul>
+                <li>Data Analytics</li>
+                <li>Custom Reports</li>
+                <li>Automated Workflows</li>
+                <li class="na">Priority Support</li>
+                <li class="na">Team Collaboration</li>
+                <li class="na">Personalized Onboarding & Training</li>
+              </ul>
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+          <!-- End Pricing Item -->
+
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div class="pricing-tem">
+              <span class="featured">Featured</span>
+              <h3 style="color: #0dcaf0">Starter Plan</h3>
+              <div class="price"><sup>KES</sup>1900<span> / mo</span></div>
+              <div class="icon">
+                <i class="bi bi-send" style="color: #0dcaf0"></i>
+              </div>
+              <ul>
+                <li>Data Analytics</li>
+                <li>Custom Reports</li>
+                <li>Automated Workflows</li>
+                <li>Priority Support</li>
+                <li class="na">Team Collaboration</li>
+                <li class="na">Personalized Onboarding & Training</li>
+              </ul>
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+          <!-- End Pricing Item -->
+
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+          >
+            <div class="pricing-tem">
+              <h3 style="color: #fd7e14">Business Plan</h3>
+              <div class="price"><sup>KES</sup>2900<span> / mo</span></div>
+              <div class="icon">
+                <i class="bi bi-airplane" style="color: #fd7e14"></i>
+              </div>
+              <ul>
+                <li>Data Analytics</li>
+                <li>Custom Reports</li>
+                <li>Automated Workflows</li>
+                <li>Priority Support</li>
+                <li>Team Collaboration</li>
+                <li class="na">Personalized Onboarding & Training</li>
+              </ul>
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+          <!-- End Pricing Item -->
+
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
+            <div class="pricing-tem">
+              <h3 style="color: #0d6efd">Ultimate Plan</h3>
+              <div class="price"><sup>KES</sup>4900<span> / mo</span></div>
+              <div class="icon">
+                <i class="bi bi-rocket" style="color: #0d6efd"></i>
+              </div>
+              <ul>
+                <li>Data Analytics</li>
+                <li>Custom Reports</li>
+                <li>Automated Workflows</li>
+                <li>Priority Support</li>
+                <li>Team Collaboration</li>
+                <li>Personalized Onboarding & Training</li>
+              </ul>
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+          <!-- End Pricing Item -->
+        </div>
+        <!-- End pricing row -->
+      </div>
+    </section>
+    <!-- /Pricing Section -->
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section light-background">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="content px-xl-5">
+              <h3><span>Frequently Asked </span><strong>Questions</strong></h3>
+              <p>
+                Our FAQ section is here to answer common questions about our
+                services, features, and payment plans. Whether you're just
+                getting started or considering an upgrade, you'll find helpful
+                information to guide you in making the best choice for your
+                business needs. If you have more questions, feel free to reach
+                out to our support team!
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="faq-container">
+              <div class="faq-item faq-active">
+                <h3>
+                  <span class="num">1.</span>
+                  <span>What is included in the Basic Plan?</span>
+                </h3>
+                <div class="faq-content">
+                  <p>
+                    The Basic Plan provides limited access to core features like
+                    data analytics and single-user collaboration. It's designed
+                    for individuals or small teams looking to get started with
+                    our platform without committing to a larger plan.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>
+                  <span class="num">2.</span>
+                  <span>Can I upgrade or downgrade my plan at any time?</span>
+                </h3>
+                <div class="faq-content">
+                  <p>
+                    Yes, you can upgrade or downgrade your plan at any time to
+                    fit your changing business needs. Simply go to your account
+                    settings to adjust your subscription, and the changes will
+                    take effect in the next billing cycle.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>
+                  <span class="num">3.</span>
+                  <span>Do you offer a free trial?</span>
+                </h3>
+                <div class="faq-content">
+                  <p>
+                    Yes, we offer a 14-day free trial for all new users. This
+                    allows you to explore all the features of our Standard Plan
+                    with no commitment. You can decide if our platform is the
+                    right fit before choosing a paid plan.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>
+                  <span class="num">4.</span>
+                  <span>What kind of support is available with each plan?</span>
+                </h3>
+                <div class="faq-content">
+                  <p>
+                    Support options vary by plan. The Basic Plan offers email
+                    support, while the Standard and Professional Plans include
+                    24/7 email and chat support. The Enterprise Plan provides a
+                    dedicated account manager for personalized support and
+                    assistance.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>
+                  <span class="num">5.</span>
+                  <span>Is my data secure on your platform?</span>
+                </h3>
+                <div class="faq-content">
+                  <p>
+                    Absolutely. We take data security very seriously. Our
+                    platform uses advanced encryption and adheres to industry
+                    standards to ensure your data is protected at all times.
+                    Additionally, our Enterprise Plan offers enhanced security
+                    features for added peace of mind.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <!-- End Faq item-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Faq Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <div>
+          <span>Need Help?</span>
+          <span class="description-title">Contact Us</span>
+        </div>
+      </div>
+      <!-- End Section Title -->
+
+      <div class="container" data-aos="fade" data-aos-delay="100">
+        <div class="row gy-4">
+          <div class="col-lg-4">
+            <div
+              class="info-item d-flex"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Address</h3>
+                <p>123 Main Street, Nairobi, Kenya</p>
+              </div>
+            </div>
+            <!-- End Info Item -->
+
+            <div
+              class="info-item d-flex"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Call Us</h3>
+                <p>+254 123 456 789</p>
+              </div>
+            </div>
+            <!-- End Info Item -->
+
+            <div
+              class="info-item d-flex"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email Us</h3>
+                <p>info@example.com</p>
+              </div>
+            </div>
+            <!-- End Info Item -->
+          </div>
+
+          <div class="col-lg-8">
+            <form
+              action="/contact_us/"
+              method="post"
+              enctype="multipart/form-data"
+              class="php-email-form"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              {% csrf_token %}
+              <div class="row gy-4">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Your Name"
+                    required=""
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    placeholder="Your Email"
+                    required=""
+                  />
+                </div>
+
+                <div class="col-md-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="subject"
+                    placeholder="Subject"
+                    required=""
+                  />
+                </div>
+
+                <div class="col-md-12">
+                  <textarea
+                    class="form-control"
+                    name="message"
+                    rows="6"
+                    placeholder="Message"
+                    required=""
+                  ></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">
+                    Your message has been sent. Thank you!
+                  </div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- End Contact Form -->
+        </div>
+      </div>
+    </section>
+    <!-- /Contact Section -->
+  </main>
+</body>
+{% endblock %}
